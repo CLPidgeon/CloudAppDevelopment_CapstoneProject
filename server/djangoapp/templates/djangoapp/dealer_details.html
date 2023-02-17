@@ -8,9 +8,9 @@
 </head>
 
     <body>
-<!-- Navbar -->
+    <!-- Navbar start -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="">Fictitious Car Dealership</a>
+    <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Fictitious Car Dealership</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,9 +38,21 @@
     {% endif %}
     </div>
 </nav>
-<!-- End of Navbar -->
-
-    <!-- Add reviews as cards -->
+<!-- Navbar end -->
+    <!-- Page Content start -->
+    <h1>Reviews for </h1>
+    <!-- Reviews start -->
+    <div class="card-columns">
+        {% for review in reviews_list %}
+        <div class="card">
+            <img class="card-img-left" src="{{MEDIA_URL}}/emoji/positive.png" style="max-width: 50px;"/>
+            <div class="card-body">
+                <div class="card-title">{{review.car_make}}, {{review.car_model}}</div>
+                <p>{{review.review}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    <!-- Reviews end -->
 
     </body>
 

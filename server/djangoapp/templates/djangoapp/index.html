@@ -16,9 +16,9 @@
 </head>
 
 <body>
-    <!-- Navbar -->
+    <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="">Fictitious Car Dealership</a>
+        <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Fictitious Car Dealership</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,10 +46,41 @@
         {% endif %}
         </div>
     </nav>
-    <!-- End of Navbar -->
-    <!-- Page Content -->
+    <!-- Navbar end -->
+    <!-- Page Content start -->
     This is the index page of your Django app!
-    <!--Add a dealer table here -->
+    <!--Dealer table start -->
+    <table class="table" id="table" data-filter-control="true">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="name">Dealer Name</th>
+                <th data-field="city">City</th>
+                <th data-field="address">Address</th>
+                <th data-field="zip">Zip</th>
+                <th data-field="state" data-filter-control="select">State</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dealer in dealerships_list %}
+            <tr>
+                <td>{{dealer.id}}</td>
+                <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
+                <td>{{dealer.city}}</td>
+                <td>{{dealer.address}}</td>
+                <td>{{dealer.zip}}</td>
+                <td>{{dealer.state}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Dealer table end -->
+    <!-- Page Content end -->
+    <script>
+        $(function() {
+            $('#table').bootstrapTable()
+        })
+    </script>
 
 </body>
 

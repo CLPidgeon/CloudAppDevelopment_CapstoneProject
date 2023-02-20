@@ -43,22 +43,23 @@
 </nav>
 <!-- Navbar end -->
     <!-- Page Content start -->
-    <h1>Add your review for {{dealer.full_name}}</h1>
+    <div class="container col-md-10 col-offset-1" style="border: solid 3px #17a2b8; border-radius: 10px; margin-top: 20px; margin-bottom: 20px; content-align: center;">
+        <br />
     <!-- Review form start -->
     <form action="{% url 'djangoapp:add_review' dealer.id %}" method="post">
         <fieldset style="background-color: #eeeeee; display: block; margin-left: 10px; margin-right: 10px; padding: 10px; border: 2px groove #17a2b8;">
             {% csrf_token %}
-            <legend class="col-md-2" style="background-color: #343a40; color: #17a2b8; padding: 10px; text-align: center">Dealership Review</legend>
+            <legend class="col-md-2" style="background-color: #343a40; color: #17a2b8; padding: 10px; text-align: center">{{dealer.short_name}} Review</legend>
             <hr style="background: linear-gradient(to right, #343a40, #17a2b8); height: 5px;">
-            <div class="form-row">
+            <div class="form-group">
                 <label for="content">Enter your review:</label>
                 <textarea class="form-control" id="content" name="content" rows="2" required></textarea>
             </div>
-            <div class="form-row">
-                <label for="purchasecheck">Check if you made a purchase</label>
-                <input class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="purchasecheck" name="purchasecheck">
+                <label class="form-check-label" for="purchasecheck">Did you make a purchase from {{dealer.short_name}}?</label>
             </div>
-            <div class="form-row">
+            <div class="form-group">
                 <label for="car">Select the car (model - make - year)</label>
                 <select name="car" id="car" class="form-select" required>
                     {% for car in cars %}
@@ -66,7 +67,7 @@
                     {% endfor %}
                </select>
             </div>
-            <div class="form-row">
+            <div class="form-group">
                   <label for="purchasedate">When did you make your purchase?</label>
                   <input class="date-own form-control" type="date" name="purchasedate" id="purchasedate">
             </div>
@@ -80,5 +81,12 @@
         </fieldset>
     </form>
     <!-- Review form end -->
+    <hr style="background: linear-gradient(to right, #343a40, #17a2b8); height: 5px;">
+      <div class="row d-flex justify-content-center">
+          <div style="padding: 10px;">
+            <small>Django Capstone Project</small>
+          </div>
+      </div>
+</div>
     </body>
 </html>

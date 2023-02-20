@@ -13,6 +13,16 @@ def get_request(url, **kwargs):
     json_data = json.loads(response.text)
     return json_data
 
+def post_request(url, **kwargs):
+    try:
+        response = requests.post(url, headers={'Content-Type': 'application/json'}, params=kwargs)
+    except:
+        print("Network exception occurred")
+    status_code = response.status_code
+    print("With status {} ".format(status_code))
+    json_data = json.loads(response.text)
+    return json_data
+
 def get_dealers_from_cf(url, **kwargs):
     results = []
     json_result = get_request(url)
@@ -45,7 +55,7 @@ def get_dealer_review(url):
     return results
 
 def post_dealer_review(url):
-    response = requests.post(url)
+    response = post_request(url)
     return response
 
 

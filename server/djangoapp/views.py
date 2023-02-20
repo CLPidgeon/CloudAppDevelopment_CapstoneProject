@@ -99,6 +99,5 @@ def review(request, dealer_id):
         context['cars'] = cars
         return render(request, 'djangoapp/add_review.html', context)
     elif request.method == 'POST':
-        url = BASE_URL + "/post-review.json?"
-        
+        url = BASE_URL + "/post-review.json?"   
         return redirect("djangoapp:dealer_details", dealer_id=dealer_id)

@@ -12,7 +12,7 @@ class CarMake(models.Model):
 class CarModel(models.Model):
     # - Many-To-One relationship to Car Make model (One Car Make has many Car Models, using ForeignKey field)
     make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
-    name = models.CharField(null=True, max_length=30)
+    name = models.CharField(max_length=30)
     dealer_id = models.IntegerField(default=0)
     SALOON = 'Saloon'
     SUV = 'SUV'
@@ -33,8 +33,7 @@ class CarModel(models.Model):
     year = models.DateField(null=True)
     # - Any other fields you would like to include in car model
     def __str__(self):
-        return "Type: " + self.type + "," \
-        "Name: " + self.name
+        return "Type: " + self.type
 
 class CarDealer:
     def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip, state):

@@ -44,8 +44,10 @@ def get_dealer_review(url):
             results.append(review_item)
     return results
 
-# Create a `post_request` to make HTTP POST requests
-# e.g., response = requests.post(url, params=kwargs, json=payload)
+def post_dealer_review(url):
+    response = requests.post(url)
+    return response
+
 
 #def analyze_review_sentiments(text):
 #    params = dict()

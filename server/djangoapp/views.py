@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import CarModel
 from django.shortcuts import get_object_or_404, render, redirect
-from .restapis import get_dealers_from_cf, get_dealers_by_id_cf, get_dealer_review
+from .restapis import get_dealers_from_cf, get_dealers_by_id_cf, get_dealer_review, post_request
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -99,5 +99,23 @@ def review(request, dealer_id):
         context['cars'] = cars
         return render(request, 'djangoapp/add_review.html', context)
     elif request.method == 'POST':
-        url = BASE_URL + "/post-review.json?"   
+        url = BASE_URL + "/post-review.json?"
+        form = request.POST
+        car = CarModel.objects.get(pk=form["car"])
+        review = dict()
+        review["car_make"] = car.make.name
+        review["car_model"] = car.name
+        review["car_year"] = car.year.strftime("%Y")
+        review["name"] = request.user.first_name
+        review["dealership"] = int(dealer_id)
+        review["review"] = form["content"]
+        if form.get("purchasecheck"):
+            review["purchase"] = True
+            review["purchase_date"] = form["purchase_date"]
+        else:
+            review["purchase"] = False
+            review["purchase_date"] = " "
+        print(review)
+        result = post_request(url, review, dealerId=dealer_id)
         return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
+        

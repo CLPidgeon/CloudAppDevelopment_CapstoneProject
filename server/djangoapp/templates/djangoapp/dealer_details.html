@@ -125,28 +125,32 @@
       {% if reviews_list %}
       <h1>Reviews for {{dealer.short_name}}</h1>
       <hr style="background: linear-gradient(to right, #343a40, #17a2b8); height: 5px;">
-      <div class="card-columns d-flex justify-content-center"> 
-        {% for review in reviews_list %}
-        <div class="card border-info" >
-          <div class="card-header">
-            <img
-              class="card-img-left"
-              src="{{MEDIA_URL}}/emoji/positive.png"
-              style="max-width: 50px;"
-            />
-            Reviewed by {{review.name}}
-          </div>
-          <div class="card-body">
-            <div class="card-title">
-              <h4>{{review.car_make}} - {{review.car_model}}</h4>
-              <p>{{review.review}}</p>
+      <div class="container">
+        <div class="card-deck mb-3 text-center"> 
+            {% for review in reviews_list %}
+            <div class="card mb-4 border-info" style="min-width: 220px;" >
+                <div class="card-header">
+                    <img
+                    class="card-img-left"
+                    src="{{MEDIA_URL}}/emoji/{{review.sentiment}}.png"
+                    style="max-width: 50px;"
+                    />
+                    Reviewed by {{review.name}}
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        {% if review.purchase %}
+                    <h4>{{review.car_make}} - {{review.car_model}}</h4>
+                    {% endif %}
+                    <p>{{review.review}}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Date of purchase: {% if review.purchase_date > 0 %}{{review.purchase_date}} {% else %} Purchase date not supplied {% endif %}</small>
+                </div>
             </div>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Date of purchase: {% if review.purchase_date %}{{review.purchase_date}} {% else %} Purchase date not supplied {% endif %}</small>
-          </div>
+            {% endfor %} 
         </div>
-        {% endfor %} 
         {% endif %}
         <!-- Reviews end -->
       </div>
